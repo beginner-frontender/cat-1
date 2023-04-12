@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuliya Cats</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+   
+    <header>
+        <img class="header__logo" src="https://i08.fotocdn.net/s107/292e101f2c458f26/public_pin_l/2352730875.jpg">
+        <h1>МОИ КОТИКИ</h1>
+        <div class="header__controls">
+            <button class="addBtn">Добавить котика</button>
+        </div>
+    </header>
+   
+    <div class="container">
+        <div class="card default">
+            <i class="fa-solid fa-heart card__like"></i>
+            <h3>КИСА</h3>
+            <span>2</span>
+        </div>
+    </div>
+
+    <div class="modal-container">
+        <div class="modal">
+            <i class="fa-regular fa-circle-xmark modal-close"></i>
+            <h2>Добавить котика</h2>
+            <form id="add">
+                <input type="number" name="id" placeholder="id кота" required>
+                <input type="text" name="name" placeholder="Имя кота" required>
+                <input type="text" name="image" placeholder="Картинка">
+                <input type="number" name="age" placeholder="Возраст">
+                <input type="number" name="rate" placeholder="Рейтинг" min="0" max="5">
+                <label>
+                    <input type="checkbox" name="favorite">
+                    Любимчик
+                </label>
+                <textarea name="description" placeholder="Информация о питомце"></textarea>
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <h3>Поставте, пожалуйста, максимальный балл! =) </h3>
+    </footer>
+   
+   <script src="cat.js">
+
+    </script>
+</body>
+</html>
