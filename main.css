@@ -168,3 +168,35 @@ input, textarea {
   border: 1px solid rgb(87, 84, 84);
   background-color: transparent;
 }
+.md-description {
+  position: fixed;
+  background-color: #0008;
+  backdrop-filter: blur(2px);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+.md-descrip {
+  background-color: rgb(185, 180, 180);
+  padding: 30px;
+  border-radius: 8px;
+  width: calc(100% - 60px);
+  max-width: 300px;
+  max-height: calc(100% - 60px);
+  position: relative;
+}
+.md-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.md-close:hover {
+  color: red
+}

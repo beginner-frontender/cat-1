@@ -68,6 +68,18 @@ if (cat.age >= 0) {
 //     deleteCard(cat.id, card);
 //     });
 
+//модадьное окно с описанием
+const mdDescription = document.querySelector(".md-description");
+const mdDes = mdDescription.querySelector(".md-close");
+
+card.addEventListener("click", (e) => {
+    mdDescription.style.display = "flex";
+        });
+
+mdDes.addEventListener("click", e => {
+        mdDescription.style = null;
+        });
+
 el.append(card)
 }   
 // ----------------------------------------------
