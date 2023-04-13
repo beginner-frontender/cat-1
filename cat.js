@@ -92,6 +92,7 @@ createCart(cat, el = box)
 // localStorage
 
 let user = localStorage.getItem("cat12") //получить имя пользователя
+const path = `https://cats.petiteweb.dev/api/single/${user}`;
 
 if (!user) {
     user = prompt("Ваше уникальное имя: ", "beginner-frontender")
@@ -124,7 +125,7 @@ if (cats){
     })
 }
 
-const path = `https://cats.petiteweb.dev/api/single/${user}`;
+
 
 
 
@@ -154,7 +155,6 @@ function addCat(cat) {
     .then(data => {
         console.log(data);
     })
-    
 }
 addCat(cat);
 
@@ -168,6 +168,10 @@ function deleteCard(id, el) {
             if (res.status === 200) {
                 el.remove();
             }
+        let cats = localStorage.getItem("cats-data");
+        cats = JSON.parse(cats);
+        cats.filter(body);
+        localStorage.setItem("cats-data", JSON.stringify(data));
         })
     }
 }
@@ -215,6 +219,11 @@ addForm.addEventListener("submit", e => {
             addForm.reset();  // очистить форму
             mdBox.style = null; //закрыть форму
             createCart(body); //отправка в тело бади без перезагрузки страницы
+            let cats = localStorage.getItem("cats-data");
+            cats = JSON.parse(cats);
+            cats.push(body);
+            localStorage.setItem("cats-data", JSON.stringify(data));
+
         } else {
             return res.json();
         }
