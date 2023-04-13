@@ -53,6 +53,7 @@ trash.className = "fa-solid fa-trash card__trash";
 trash.addEventListener("click", e => {
     e.stopPropagation();
     deleteCard(cat.id, card);
+    
 })
 
 // Добавление в карточку
@@ -151,7 +152,7 @@ function addCat(cat) {
     })
     .then(res => res.json())
     .then(data => {
-        // console.log(data);
+        console.log(data);
     })
     
 }
@@ -226,27 +227,3 @@ addForm.addEventListener("submit", e => {
 })
 // -------------------------------------------------------
 
-// if (cats){
-//     cats = JSON.parse(cats) // взять из строки объект
-//     for ( let cat of cats) {
-//         createCart (cat, box); // передаем котов
-//     }   
-// } else { // Добовление котиков из базы, если котов нет 
-// fetch(path + "/show")
-// .then(function(res) {
-//     if (res.statusText === "OK") {
-//         return res.json();
-//     }
-// })
-// .then(function(data) {
-//     if (!data.length) {
-//         box.innerHTML = "<div class=\"empty\">У вас пока еще нет питомцев</div>"
-//     } else {
-//         cats = [...data];
-//         localStorage.setItem("cats-data", JSON.stringify(data)) // сохраняем котов в localStorage
-//         for (let c of data) {
-//         createCart(c, box);
-//         }
-//     }
-// })
-// }
