@@ -82,6 +82,8 @@ mdDes.addEventListener("click", e => {
 
 el.append(card)
 }   
+
+
 // ----------------------------------------------
 // вызов функции
 createCart(cat, el = box)
@@ -97,22 +99,12 @@ if (!user) {
 
 let cats = localStorage.getItem("cats-data") // массив с котами
 if (cats){
-    try {
         cats = JSON.parse(cats) // взять из строки объект
         for ( let cat of cats) {
-            createCart (cat); // передаем котов
-        }
-    } catch (e) {
-        cats = null; // отловить ощибку
-    }
-}
-
-// Добовление котиков из базы, если котов нет 
-// const user = "beginner-frontender";
-const path = `https://cats.petiteweb.dev/api/single/${user}`;
-
-if (!cats) {
-fetch(path + "/show")
+            createCart (cat, box); // передаем котов
+        }   
+    } else { // Добовление котиков из базы, если котов нет 
+    fetch(path + "/show")
     .then(function(res) {
         if (res.statusText === "OK") {
             return res.json();
@@ -131,6 +123,10 @@ fetch(path + "/show")
     })
 }
 
+const path = `https://cats.petiteweb.dev/api/single/${user}`;
+
+
+
 // автоматическое добавление фейковых котов при обновлении страницы
 // let ids = [];
 // fetch(path + "/ids")
@@ -144,7 +140,7 @@ fetch(path + "/show")
 
 
 // функция добавления котика в базу данных
-cat.id = 7
+// cat.id = 7
 function addCat(cat) {
     fetch(path + "/add", {
         method: "POST",
@@ -230,3 +226,27 @@ addForm.addEventListener("submit", e => {
 })
 // -------------------------------------------------------
 
+// if (cats){
+//     cats = JSON.parse(cats) // взять из строки объект
+//     for ( let cat of cats) {
+//         createCart (cat, box); // передаем котов
+//     }   
+// } else { // Добовление котиков из базы, если котов нет 
+// fetch(path + "/show")
+// .then(function(res) {
+//     if (res.statusText === "OK") {
+//         return res.json();
+//     }
+// })
+// .then(function(data) {
+//     if (!data.length) {
+//         box.innerHTML = "<div class=\"empty\">У вас пока еще нет питомцев</div>"
+//     } else {
+//         cats = [...data];
+//         localStorage.setItem("cats-data", JSON.stringify(data)) // сохраняем котов в localStorage
+//         for (let c of data) {
+//         createCart(c, box);
+//         }
+//     }
+// })
+// }
