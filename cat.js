@@ -86,11 +86,32 @@ el.append(card)
 // вызов функции
 createCart(cat, el = box)
 
+// localStorage
 
-// Добовление котиков из базы
-const user = "beginner-frontender";
+let user = localStorage.getItem("cat12") //получить имя пользователя
+
+if (!user) {
+    user = prompt("Ваше уникальное имя: ", "beginner-frontender")
+    localStorage.setItem("cat12", user) // добавить имя пользователя
+}
+
+let cats = localStorage.getItem("cats-data") // массив с котами
+if (cats){
+    try {
+        cats = JSON.parse(cats) // взять из строки объект
+        for ( let cat of cats) {
+            createCart (cat); // передаем котов
+        }
+    } catch (e) {
+        cats = null; // отловить ощибку
+    }
+}
+
+// Добовление котиков из базы, если котов нет 
+// const user = "beginner-frontender";
 const path = `https://cats.petiteweb.dev/api/single/${user}`;
 
+if (!cats) {
 fetch(path + "/show")
     .then(function(res) {
         if (res.statusText === "OK") {
@@ -101,11 +122,14 @@ fetch(path + "/show")
         if (!data.length) {
             box.innerHTML = "<div class=\"empty\">У вас пока еще нет питомцев</div>"
         } else {
+            cats = [...data];
+            localStorage.setItem("cats-data", JSON.stringify(data)) // сохраняем котов в localStorage
             for (let c of data) {
             createCart(c, box);
             }
         }
     })
+}
 
 // автоматическое добавление фейковых котов при обновлении страницы
 // let ids = [];
