@@ -10,8 +10,6 @@ const box = document.querySelector(".container");
 // Общая функция добавления котов
 // ----------------------------------------------
 function createCart (cat) {
-
-// Нахождение нужных элементов
 const card = document.createElement("div");
 card.className = "card";
     if (!cat.image) {
@@ -43,7 +41,9 @@ like.addEventListener("click", e => {
                 like.classList.toggle("fa-solid");
                 like.classList.toggle("fa-regular");
             }
+            
         })
+
     }
 })
 
@@ -63,11 +63,6 @@ if (cat.age >= 0) {
     age.innerText = cat.age;
     card.append(age);
 }
-
-// Клик на карточку для удаления
-// card.addEventListener("click", (e) => {
-//     deleteCard(cat.id, card);
-//     });
 
 //модадьное окно с описанием
 const mdDescription = document.querySelector(".md-description");
