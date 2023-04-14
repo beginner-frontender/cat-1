@@ -44,6 +44,7 @@ like.addEventListener("click", e => {
             
         })
 
+        localStorage.setItem("cats-data", JSON.stringify(cats));
     }
 })
 
@@ -71,7 +72,6 @@ const mdDes = mdDescription.querySelector(".md-close");
 card.addEventListener("click", (e) => {
     mdDescription.style.display = "flex";
         });
-
 mdDes.addEventListener("click", e => {
         mdDescription.style = null;
         });
@@ -83,6 +83,7 @@ el.append(card)
 // ----------------------------------------------
 // вызов функции
 createCart(cat, el = box)
+
 
 // localStorage
 
@@ -121,21 +122,6 @@ if (cats){
 }
 
 
-
-
-
-// автоматическое добавление фейковых котов при обновлении страницы
-// let ids = [];
-// fetch(path + "/ids")
-//     .then(res => res.json())
-//     .then(data => {
-//         console.log(data);
-//         ids = [...data];
-//         cat.id = ids.length ? ids[ids.length - 1] + 1 : 1;
-//         addCat(cat);
-//        })
-
-
 // функция добавления котика в базу данных
 // cat.id = 7
 function addCat(cat) {
@@ -161,12 +147,10 @@ function deleteCard(id, el) {
         })
         .then(res => {
             if (res.status === 200) {
+                cats = cats.filter(cat =>  cat.id !== id);
+                localStorage.setItem("cats-data", JSON.stringify(cats));
                 el.remove();
             }
-        let cats = localStorage.getItem("cats-data");
-        cats = JSON.parse(cats);
-        cats.filter(body);
-        localStorage.setItem("cats-data", JSON.stringify(data));
         })
     }
 }
@@ -217,7 +201,7 @@ addForm.addEventListener("submit", e => {
             let cats = localStorage.getItem("cats-data");
             cats = JSON.parse(cats);
             cats.push(body);
-            localStorage.setItem("cats-data", JSON.stringify(data));
+            localStorage.setItem("cats-data", JSON.stringify(cats));
 
         } else {
             return res.json();
