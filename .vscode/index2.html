@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main2.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <img class="header__logo" src="https://i08.fotocdn.net/s107/292e101f2c458f26/public_pin_l/2352730875.jpg">
+        <h1>МОИ КОТИКИ</h1>
+        <div class="header__controls">
+            <button>выйти</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="name"></div>
+        <div class="info"></div>
+        <img class="img" crs="">
+    </div>
+   
+
+
+    <script>
+
+        console.log(location);
+        let id = location.search.split("=");
+        id = id[id.length - 1];
+        // console.log(id);
+        const info = document.querySelector(".info");
+        const name = document.querySelector(".name");
+        const img = document.querySelector(".img");
+        const button = document.querySelector("button");
+
+
+        let user = localStorage.getItem("cat12"); // имя пользователя
+        if (!user) {
+            user = prompt("Ваше уникальное имя: ", "lk12");
+            localStorage.setItem("cat12", user);
+        }
+
+        const path = `https://cats.petiteweb.dev/api/single/${user}`;
+
+        fetch(`${path}/show/${id}`)
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+            })
+            .then(data => {
+
+                name.innerHTML = `<h1>${data.name}</h1>`
+
+                info.innerHTML = `<h1>${data.description}</h1>`
+                if (!data.description) {
+                    info.innerHTML = null
+                }
+
+                img.src = `${data.image})`
+                if (!data.image) {
+                    img.src = "https://i08.fotocdn.net/s107/292e101f2c458f26/public_pin_l/2352730875.jpg"
+                }
+
+
+            })
+        button.addEventListener("click", e => {
+            location.replace("http://127.0.0.1:5501/")
+           
+        })
+    </script>
+</body>
+
+</html>

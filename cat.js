@@ -40,11 +40,16 @@ like.addEventListener("click", e => {
             if (res.status === 200) {
                 like.classList.toggle("fa-solid");
                 like.classList.toggle("fa-regular");
+                cats = cats.map(element => {
+                    if (element.id === cat.id) {
+                        element.favorite = !cat.favorite
+                    }
+                    return element
+                })
+                localStorage.setItem("cats-data", JSON.stringify(cats));
             }
             
         })
-
-        localStorage.setItem("cats-data", JSON.stringify(cats));
     }
 })
 
@@ -65,17 +70,9 @@ if (cat.age >= 0) {
     card.append(age);
 }
 
-//модадьное окно с описанием
-const mdDescription = document.querySelector(".md-description");
-const mdDes = mdDescription.querySelector(".md-close");
-
-card.addEventListener("click", (e) => {
-    mdDescription.style.display = "flex";
-        });
-mdDes.addEventListener("click", e => {
-        mdDescription.style = null;
-        });
-
+card.addEventListener("click", e =>{
+    location.replace(`.vscode/index2.html?id=${cat.id}`)
+})
 el.append(card)
 }   
 
@@ -137,7 +134,7 @@ function addCat(cat) {
         console.log(data);
     })
 }
-addCat(cat);
+// addCat(cat);
 
 // функция удаления карточки с котом 
 function deleteCard(id, el) {
