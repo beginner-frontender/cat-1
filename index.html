@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,12 +8,12 @@
     <title>Yuliya Cats</title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-   
+
     <header>
         <img class="header__logo" src="https://i08.fotocdn.net/s107/292e101f2c458f26/public_pin_l/2352730875.jpg">
         <h1>МОИ КОТИКИ</h1>
@@ -20,10 +21,12 @@
             <button class="addBtn">Добавить котика</button>
         </div>
     </header>
-   
+
     <div class="container">
         <div class="card default">
             <i class="fa-solid fa-heart card__like"></i>
+            <i class="fa-solid fa-pen card__pen"></i>
+            <i class="fa-solid fa-trash card__trash"></i>
             <h3>КИСА</h3>
             <span>2</span>
         </div>
@@ -49,12 +52,31 @@
         </div>
     </div>
 
+    <!-- -------------------------------------- -->
+    <div class="md-container" data-type="upd">
+        <div class="md">
+            <h2>Изменить котика</h2>
+            <form id="upd">
+                <label for="upd1">ID</label>
+                <input type="number" id="upd1" name="id" required disabled placeholder="1" min="1">
+                <label for="upd2">Имя</label>
+                <input type="text" id="upd2" name="name" required placeholder="Мурка">
+                <label for="upd3">Изображение</label>
+                <input type="url" id="upd3" name="image" placeholder="Ссылка на картинку">
+                <label for="upd7">Описание</label>
+                <textarea type="text" id="upd7" name="description" placeholder="Описание" rows="3"></textarea>
+                <button class="btn" type="submit">сохранить</button>
+            </form>
+        </div>
+    </div>
+    <!-- ----------------------------------------- -->
     <footer>
         <h3>Поставте, пожалуйста, максимальный балл! =) </h3>
     </footer>
-   
-   <script src="cat.js">
+
+    <script src="cat.js">
 
     </script>
 </body>
+
 </html>

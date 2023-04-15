@@ -88,6 +88,16 @@ h3 {
 .card h3 {
   margin-bottom: 5px;
 }
+.card__pen {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  cursor: pointer;
+  color: rgb(4, 0, 0);
+}
+.card__pen:hover{
+  color: red;
+}
 .card__like {
   position: absolute;
   top: 10px;
@@ -168,7 +178,7 @@ input, textarea {
   border: 1px solid rgb(87, 84, 84);
   background-color: transparent;
 }
-.md-description {
+.md-container {
   position: fixed;
   background-color: #0008;
   backdrop-filter: blur(2px);
@@ -181,7 +191,7 @@ input, textarea {
   align-items: center;
   display: none;
 }
-.md-descrip {
+.md {
   background-color: rgb(185, 180, 180);
   padding: 30px;
   border-radius: 8px;
@@ -190,13 +200,7 @@ input, textarea {
   max-height: calc(100% - 60px);
   position: relative;
 }
-.md-close {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 1.4rem;
-  cursor: pointer;
-}
-.md-close:hover {
-  color: red
+.md form {
+  display: grid;
+  gap: 10px;
 }

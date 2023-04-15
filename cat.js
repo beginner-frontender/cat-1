@@ -1,6 +1,6 @@
 let cat = {
-    name : "Кот",
-    age : 3,
+    name: "Кот",
+    age: 3,
     image: "https://proprikol.ru/wp-content/uploads/2020/08/krasivye-kartinki-kotov-45.jpg",
     favorite: false,
 }
@@ -9,72 +9,85 @@ const box = document.querySelector(".container");
 
 // Общая функция добавления котов
 // ----------------------------------------------
-function createCart (cat) {
-const card = document.createElement("div");
-card.className = "card";
+function createCart(cat) {
+    const card = document.createElement("div");
+    card.className = "card";
     if (!cat.image) {
         card.classList.add("default");
     } else {
         card.style.backgroundImage = `url(${cat.image})`;
     }
-const name = document.createElement("h3");
-name.innerText = cat.name;
-const like = document.createElement("i");
-like.className = "fa-heart card__like";
+    const name = document.createElement("h3");
+    name.innerText = cat.name;
 
-// Лайк или дизлайк
-like.classList.add(cat.favorite ? "fa-solid" : "fa-regular");
+    const like = document.createElement("i");
+    like.className = "fa-heart card__like";
 
-// клик на сердечко
-like.addEventListener("click", e => {
-    e.stopPropagation();
-    if (cat.id) {
-        fetch(`${path}/update/${cat.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({favorite: !cat.favorite})
-        })
-        .then(res => {
-            if (res.status === 200) {
-                like.classList.toggle("fa-solid");
-                like.classList.toggle("fa-regular");
-                cats = cats.map(element => {
-                    if (element.id === cat.id) {
-                        element.favorite = !cat.favorite
+    // Лайк или дизлайк
+    like.classList.add(cat.favorite ? "fa-solid" : "fa-regular");
+
+    // клик на сердечко
+    like.addEventListener("click", e => {
+        e.stopPropagation();
+        if (cat.id) {
+            fetch(`${path}/update/${cat.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ favorite: !cat.favorite })
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        like.classList.toggle("fa-solid");
+                        like.classList.toggle("fa-regular");
+                        cats = cats.map(element => {
+                            if (element.id === cat.id) {
+                                element.favorite = !cat.favorite
+                            }
+                            return element
+                        })
+                        localStorage.setItem("cats-data", JSON.stringify(cats));
                     }
-                    return element
+
                 })
-                localStorage.setItem("cats-data", JSON.stringify(cats));
-            }
-            
-        })
-    }
-})
-
-// корзина
-const trash = document.createElement("i");
-trash.className = "fa-solid fa-trash card__trash";
-trash.addEventListener("click", e => {
-    e.stopPropagation();
-    deleteCard(cat.id, card);
+        }
+    })
+    // изменения
+    const pen = document.querySelector("i");
+    pen.className = "fa-solid fa-pen card__pen"
+    const upd = document.querySelector(".md-container");
+    pen.addEventListener("click", e => {
+        upd.style.display = "flex";
+    });
+    const btn = upd.querySelector(".btn");
+    btn.addEventListener("click", e => {
+        upd.style = null;
+    })
     
-})
 
-// Добавление в карточку
-card.append(like, name, trash);
-if (cat.age >= 0) {
-    const age = document.createElement("span");
-    age.innerText = cat.age;
-    card.append(age);
+
+    // корзина
+    const trash = document.createElement("i");
+    trash.className = "fa-solid fa-trash card__trash";
+    trash.addEventListener("click", e => {
+        e.stopPropagation();
+        deleteCard(cat.id, card);
+    })
+
+    // Добавление в карточку
+    card.append(like, pen, name, trash,);
+    if (cat.age >= 0) {
+        const age = document.createElement("span");
+        age.innerText = cat.age;
+        card.append(age);
+    }
+
+    card.addEventListener("click", e => {
+        location.replace(`.vscode/index2.html?id=${cat.id}`)
+    })
+    el.append(card)
 }
-
-card.addEventListener("click", e =>{
-    location.replace(`.vscode/index2.html?id=${cat.id}`)
-})
-el.append(card)
-}   
 
 
 // ----------------------------------------------
@@ -93,29 +106,29 @@ if (!user) {
 }
 
 let cats = localStorage.getItem("cats-data") // массив с котами
-if (cats){
-        cats = JSON.parse(cats) // взять из строки объект
-        for ( let cat of cats) {
-            createCart (cat, box); // передаем котов
-        }   
-    } else { // Добовление котиков из базы, если котов нет 
+if (cats) {
+    cats = JSON.parse(cats) // взять из строки объект
+    for (let cat of cats) {
+        createCart(cat, box); // передаем котов
+    }
+} else { // Добовление котиков из базы, если котов нет 
     fetch(path + "/show")
-    .then(function(res) {
-        if (res.statusText === "OK") {
-            return res.json();
-        }
-    })
-    .then(function(data) {
-        if (!data.length) {
-            box.innerHTML = "<div class=\"empty\">У вас пока еще нет питомцев</div>"
-        } else {
-            cats = [...data];
-            localStorage.setItem("cats-data", JSON.stringify(data)) // сохраняем котов в localStorage
-            for (let c of data) {
-            createCart(c, box);
+        .then(function (res) {
+            if (res.statusText === "OK") {
+                return res.json();
             }
-        }
-    })
+        })
+        .then(function (data) {
+            if (!data.length) {
+                box.innerHTML = "<div class=\"empty\">У вас пока еще нет питомцев</div>"
+            } else {
+                cats = [...data];
+                localStorage.setItem("cats-data", JSON.stringify(data)) // сохраняем котов в localStorage
+                for (let c of data) {
+                    createCart(c, box);
+                }
+            }
+        })
 }
 
 
@@ -129,12 +142,14 @@ function addCat(cat) {
         },
         body: JSON.stringify(cat)
     })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
-    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
 }
 // addCat(cat);
+
+
 
 // функция удаления карточки с котом 
 function deleteCard(id, el) {
@@ -142,13 +157,13 @@ function deleteCard(id, el) {
         fetch(`${path}/delete/${id}`, {
             method: "delete"
         })
-        .then(res => {
-            if (res.status === 200) {
-                cats = cats.filter(cat =>  cat.id !== id);
-                localStorage.setItem("cats-data", JSON.stringify(cats));
-                el.remove();
-            }
-        })
+            .then(res => {
+                if (res.status === 200) {
+                    cats = cats.filter(cat => cat.id !== id);
+                    localStorage.setItem("cats-data", JSON.stringify(cats));
+                    el.remove();
+                }
+            })
     }
 }
 
@@ -164,14 +179,12 @@ mdClose.addEventListener("click", e => {
     mdBox.style = null;
 });
 // ----------------------------------------------
+
 // Отправка формы обратной связи
 const addForm = document.forms.add;
 addForm.addEventListener("submit", e => {
     e.preventDefault(); // остановить действие по умолчанию
     const body = {};
-    // console.log(addForm.children) // дочерние теги (прямые потомки)
-    // console.log(addForm.elements) // все элементы формы (input/select/textarea/button)
-
     for (let i = 0; i < addForm.elements.length; i++) {
         const inp = addForm.elements[i];
         if (inp.name) { // элемент формы имеет атрибут name (не является кнопкой)
@@ -182,7 +195,7 @@ addForm.addEventListener("submit", e => {
             }
         }
     }
-// отправка формы в базу данных
+    // отправка формы в базу данных
     fetch(path + "/add", {
         method: "post",
         headers: {
@@ -190,6 +203,51 @@ addForm.addEventListener("submit", e => {
         },
         body: JSON.stringify(body)
     })
+        .then(res => {
+            if (res.ok) {
+                addForm.reset();  // очистить форму
+                mdBox.style = null; //закрыть форму
+                createCart(body); //отправка в тело бади без перезагрузки страницы
+                let cats = localStorage.getItem("cats-data");
+                cats = JSON.parse(cats);
+                cats.push(body);
+                localStorage.setItem("cats-data", JSON.stringify(cats));
+
+            } else {
+                return res.json();
+            }
+        })
+        .then(err => {
+            if (err && err.message) {
+                alert(err.message); //вывести сообщение об ошибке
+            }
+        });
+})
+// -------------------------------------------------------
+
+// // Отправка формы обратной связи c изменениями
+const updForm = document.forms.upd;
+updForm.addEventListener("submit", e => {
+    e.preventDefault(); // остановить действие по умолчанию
+    const body = {};
+    for (let i = 0; i < updForm.elements.length; i++) {
+        const inp = updForm.elements[i];
+        if (inp.name) { // элемент формы имеет атрибут name (не является кнопкой)
+            if (inp.type === "checkbox") {
+                body[inp.name] = inp.checked;
+            } else {
+                body[inp.name] = inp.value;
+            }
+        }
+    }
+//     // отправка формы в базу данных
+fetch(`${path}/update/${cat.id}`, {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ body})
+})
     .then(res => {
         if (res.ok) {
             addForm.reset();  // очистить форму
@@ -210,5 +268,3 @@ addForm.addEventListener("submit", e => {
         }
     });
 })
-// -------------------------------------------------------
-
